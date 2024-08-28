@@ -1,6 +1,8 @@
+#! / usr /bin /env node
 import inquirer from "inquirer";
 import chalk from "chalk";
 let while_condiation = true;
+//--------------------- player class----------------------------
 class player {
     name;
     fuel = 100;
@@ -14,6 +16,7 @@ class player {
         this.fuel = this.fuel + 25;
     }
 }
+//---------------------------------------------------opponent class------------
 class opponent {
     name;
     fuel = 100;
@@ -27,7 +30,9 @@ class opponent {
         this.fuel = this.fuel + 25;
     }
 }
+//----------------------------- game start --------------------
 console.log("welcome to the Adventure Game ");
+//------------------------------- naming player and opponent --------------------
 let userinput = await inquirer.prompt([{
         type: "input",
         name: "myname",
@@ -44,6 +49,7 @@ let { myname, opponentname } = userinput;
 console.log(`${chalk.bold.green(myname)} vs ${chalk.bold.red(opponentname)}`);
 let myplayer = new player(myname);
 let myopponent = new opponent(opponentname);
+// --------------------------------- options ------------------------
 do {
     let startmatch = await inquirer.prompt({
         type: "list",
@@ -57,7 +63,7 @@ do {
         increasehealth();
     if (startmatch.options === "run for life")
         runForLife();
-    ///attack function start
+    ///---------------------------- attack function ----------
     function attack() {
         //genating 0 and 1
         let number = Math.floor(Math.random() * 2);
@@ -81,6 +87,7 @@ do {
             }
         }
     }
+    // ---------------------------------------- increase health function ------------
     function increasehealth() {
         if (myplayer.fuel < 100) {
             myplayer.fuelincrease();
@@ -90,10 +97,12 @@ do {
             console.log(chalk.bold.green(`${myplayer.name}'s fuel is full`));
         }
     }
+    // ----------------------------------- run for life function-----------
     function runForLife() {
         console.log(chalk.bold.red(`${myplayer.name} lost ! better luck next time`));
         process.exit();
     }
+    //------------------------------------------- confirm condition for while -----------
     let while_action = await inquirer.prompt([{
             type: "confirm",
             name: "exit",

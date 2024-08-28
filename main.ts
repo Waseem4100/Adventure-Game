@@ -1,8 +1,11 @@
- import  inquirer from "inquirer"
+#! / usr /bin /env node
+
+  import  inquirer from "inquirer"
  import chalk from "chalk" 
 
  let while_condiation = true
 
+ //--------------------- player class----------------------------
 class player{
     name:string;
     fuel: number=100;
@@ -17,6 +20,7 @@ class player{
         this.fuel= this.fuel +25
     }
 }
+//---------------------------------------------------opponent class------------
 
 class opponent {
     name:string;
@@ -33,8 +37,11 @@ fuelincrease(){
 }
 }
 
+//----------------------------- game start --------------------
+
 console.log("welcome to the Adventure Game ")
 
+//------------------------------- naming player and opponent --------------------
 
 let userinput = await inquirer.prompt([{
     type:"input",
@@ -57,6 +64,8 @@ console.log(`${chalk.bold.green(myname)} vs ${chalk.bold.red(opponentname)}`)
 let myplayer = new player(myname);
 let myopponent = new opponent(opponentname);
 
+// --------------------------------- options ------------------------
+
 do{
     let startmatch = await inquirer .prompt({
         type:"list",
@@ -72,7 +81,7 @@ do{
 
 
         
-     ///attack function start
+     ///---------------------------- attack function ----------
      function attack (){
         //genating 0 and 1
         let number = Math.floor(Math.random()*2)
@@ -108,6 +117,9 @@ do{
               
 }
 
+
+
+// ---------------------------------------- increase health function ------------
     function increasehealth (){
         if (myplayer.fuel<100){
         myplayer.fuelincrease()
@@ -121,11 +133,16 @@ do{
 
     }
 
+    // ----------------------------------- run for life function-----------
+
+     
     function runForLife(){
         console.log(chalk.bold.red(`${myplayer.name} lost ! better luck next time`))
         process.exit()
         
     }
+
+    //------------------------------------------- confirm condition for while -----------
 
     let while_action =await inquirer.prompt([{
         type: "confirm",
@@ -142,3 +159,4 @@ do{
 
 }
 while(while_condiation ===true)  
+
